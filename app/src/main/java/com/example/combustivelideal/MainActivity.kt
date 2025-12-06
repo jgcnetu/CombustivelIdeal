@@ -85,6 +85,7 @@ fun CombustivelIdealApp() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+        // Titulo
         Text(
             text = "⛽ Combustível Ideal",
             fontSize = 28.sp,
@@ -92,6 +93,7 @@ fun CombustivelIdealApp() {
             color = MaterialTheme.colorScheme.primary,
             textAlign = TextAlign.Center
         )
+        // Descrição
         Text(
             text = "Compare os preços para economizar",
             fontSize = 16.sp,
@@ -99,6 +101,7 @@ fun CombustivelIdealApp() {
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(16.dp))
+        // Card Entrada de Dados
         Card(
             modifier = Modifier.fillMaxWidth(),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
@@ -108,6 +111,7 @@ fun CombustivelIdealApp() {
                     .padding(20.dp),
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
+                // Entrada Gasolina
                 OutlinedTextField(
                     value = precoGasolina,
                     onValueChange = { precoGasolina = it },
@@ -117,6 +121,7 @@ fun CombustivelIdealApp() {
                     singleLine = true,
                     shape = MaterialTheme.shapes.medium
                 )
+                // Entrada Etanol
                 OutlinedTextField(
                     value = precoEtanol,
                     onValueChange = { precoEtanol = it },
@@ -126,6 +131,7 @@ fun CombustivelIdealApp() {
                     singleLine = true,
                     shape = MaterialTheme.shapes.medium
                 )
+                // Botão Calcular
                 Button(
                     onClick = calcularCombustivelIdeal,
                     modifier = Modifier.fillMaxWidth(),
@@ -139,7 +145,8 @@ fun CombustivelIdealApp() {
                     )
                 }
             }
-        }
+        } // Fechamento Card Entrada de Dados
+        // Resultado
         resultado?.let {
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -163,6 +170,7 @@ fun CombustivelIdealApp() {
                         textAlign = TextAlign.Center,
                         color = MaterialTheme.colorScheme.onSurface
                     )
+                    // Indicador Visual
                     if (porcentagemCalculada > 0) {
                         val cor = if (porcentagemCalculada <= 70)
                             MaterialTheme.colorScheme.primary
@@ -174,6 +182,7 @@ fun CombustivelIdealApp() {
                             color = cor,
                             fontWeight = FontWeight.Medium
                         )
+                        // Regra dos 70%
                         Text(
                             text = "Regra: em geral, abastecer com Etanol é vantajoso se estiver" +
                                     " custando até 70% do preço da Gasolina.",
@@ -186,6 +195,7 @@ fun CombustivelIdealApp() {
                 }
             }
         } // Fechamento resultado
+        // Informações
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(
