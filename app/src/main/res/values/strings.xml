@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Combustivel Ideal</string>
+    <string name="app_name">Combustível Ideal</string>
+    <string name="gasolina_label">Preço da Gasolina</string>
+    <string name="etanol_label">Preço do Etanol</string>
+    <string name="calcular_btn">Calcular</string>
+    <string name="limpar_btn">Limpar</string>
+    <string name="gasolina_exemplo">Ex: 5,75</string>
+    <string name="etanol_exemplo">Ex: 3,90</string>
 </resources>
