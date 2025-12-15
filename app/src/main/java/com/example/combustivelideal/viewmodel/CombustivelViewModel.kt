@@ -1,4 +1,4 @@
-package com.example.combustivelideal.principal.viewmodel
+package com.example.combustivelideal.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

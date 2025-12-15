@@ -1,4 +1,4 @@
-package com.example.combustivelideal.componentes
+package com.example.combustivelideal.ui.componente
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -17,6 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
@@ -63,7 +64,7 @@ fun BotoesAcao(
                 CircularProgressIndicator(
                     modifier = Modifier.size(20.dp),
                     strokeWidth = 2.dp,
-                    color = androidx.compose.ui.graphics.Color.White
+                    color = Color.White
                 )
             } else {
                 Icon(

@@ -1,4 +1,4 @@
-package com.example.combustivelideal.componentes
+package com.example.combustivelideal.ui.componente
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -11,6 +11,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.combustivelideal.util.FormatadorUtil
@@ -20,10 +22,10 @@ fun CampoPrecoCombustivel(
     valor: String,
     aoValorAlterar: (String) -> Unit,
     rotulo: String,
-    corRotulo: androidx.compose.ui.graphics.Color,
+    corRotulo: Color,
     placeholder: String,
-    icone: androidx.compose.ui.graphics.vector.ImageVector,
-    corIcone: androidx.compose.ui.graphics.Color,
+    icone: ImageVector,
+    corIcone: Color,
     habilitado: Boolean
 ) {
     Row(

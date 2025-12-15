@@ -1,17 +1,10 @@
-package com.example.combustivelideal.componentes
+package com.example.combustivelideal.ui.componente
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.ThumbUp
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,11 +12,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.combustivelideal.modelo.ResultadoCalculo
 import com.example.combustivelideal.modelo.TipoCombustivel
 import com.example.combustivelideal.util.FormatadorUtil
 
 @Composable
-fun CartaoResultado(resultado: com.example.combustivelideal.modelo.ResultadoCalculo) {
+fun CartaoResultado(
+    resultado: ResultadoCalculo,
+    onCompartilharClick: (() -> Unit)? = null,
+    modifier: Modifier = Modifier
+    ) {
     val corFundo = when (resultado.recomendacao) {
         TipoCombustivel.ETANOL -> MaterialTheme.colorScheme.primaryContainer
         TipoCombustivel.GASOLINA -> MaterialTheme.colorScheme.secondaryContainer
@@ -72,14 +70,48 @@ fun CartaoResultado(resultado: com.example.combustivelideal.modelo.ResultadoCalc
                 )
 
                 // Barra visual
-                BarraPorcentagem(porcentagem = porcentagem)
+                BarraPorcentagem(porcentagem = porcentagem, modifier = Modifier.fillMaxWidth())
 
+                // Preços
+                if (resultado.precoGasolina != null && resultado.precoEtanol != null) {
+                    Text(
+                        text = "Gasolina: ${FormatadorUtil.formatarMoeda(resultado.precoGasolina)}",
+                        fontSize = 14.sp,
+                        color = corTexto.copy(alpha = 0.7f)
+                    )
+
+                    Text(
+                        text = "Etanol: ${FormatadorUtil.formatarMoeda(resultado.precoEtanol)}",
+                        fontSize = 14.sp,
+                        color = corTexto.copy(alpha = 0.7f)
+                    )
+                }
                 // Regra dos 70%
                 Text(
                     text = "Regra: Etanol vantajoso até 70%",
                     fontSize = 14.sp,
                     color = corTexto.copy(alpha = 0.6f)
                 )
+            }
+
+            // Botão de compartilhar (opcional)
+            onCompartilharClick?.let {
+                Button(
+                    onClick = it,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = corTexto,
+                        contentColor = corFundo
+                    ),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Share,
+                        contentDescription = "Compartilhar",
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text("Compartilhar Resultado")
+                }
             }
         }
     }

@@ -1,5 +1,7 @@
 package com.example.combustivelideal.modelo
 
+import com.example.combustivelideal.util.GeradorMensagem
+
 enum class TipoCombustivel {
     ETANOL,
     GASOLINA
@@ -10,7 +12,9 @@ data class ResultadoCalculo(
     val recomendacao: TipoCombustivel? = null,
     val porcentagem: Double? = null,
     val mensagem: String,
-    val erro: String? = null
+    val erro: String? = null,
+    val precoGasolina: Double? = null,
+    val precoEtanol: Double? = null
 ) {
     companion object {
         fun calcular(gasolina: Double, etanol: Double): ResultadoCalculo {
@@ -19,7 +23,9 @@ data class ResultadoCalculo(
                 return ResultadoCalculo(
                     sucesso = false,
                     mensagem = "❌ Erro nos valores",
-                    erro = "Digite preços maiores que zero"
+                    erro = "Digite preços maiores que zero",
+                    precoGasolina = gasolina,
+                    precoEtanol = etanol
                 )
             }
 
@@ -48,12 +54,34 @@ data class ResultadoCalculo(
                 sucesso = true,
                 recomendacao = recomendacao,
                 porcentagem = porcentagem,
-                mensagem = mensagem
+                mensagem = mensagem,
+                precoGasolina = gasolina,
+                precoEtanol = etanol
             )
         }
 
         private fun formatarPorcentagem(valor: Double): String {
             return "%.1f%%".format(valor)
         }
+    }
+    // Métodos para compartilhamento
+    fun gerarTextoCompartilhamento(): String {
+        return if (precoGasolina != null && precoEtanol != null) {
+            GeradorMensagem.gerarMensagemCompartilhamento(
+                resultado = this,
+                precoGasolina = precoGasolina,
+                precoEtanol = precoEtanol
+            )
+        } else {
+            GeradorMensagem.gerarMensagemSimples(this)
+        }
+    }
+
+    fun gerarTextoWhatsApp(): String {
+        return GeradorMensagem.gerarMensagemWhatsApp(this)
+    }
+
+    fun gerarTextoImagem(): String {
+        return GeradorMensagem.gerarImagemTexto(this)
     }
 }

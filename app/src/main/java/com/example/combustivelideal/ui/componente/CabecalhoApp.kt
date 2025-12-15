@@ -1,4 +1,4 @@
-package com.example.combustivelideal.componentes
+package com.example.combustivelideal.ui.componente
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

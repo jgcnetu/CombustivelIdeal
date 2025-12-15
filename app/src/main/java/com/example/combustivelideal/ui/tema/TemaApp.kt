@@ -1,4 +1,4 @@
-package com.example.combustivelideal.tema
+package com.example.combustivelideal.ui.tema
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.*

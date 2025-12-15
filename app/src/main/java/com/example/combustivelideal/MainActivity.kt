@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.combustivelideal.principal.TelaPrincipal
-import com.example.combustivelideal.tema.TemaCombustivelIdeal
+import com.example.combustivelideal.ui.tela.TelaPrincipal
+import com.example.combustivelideal.ui.tema.TemaCombustivelIdeal
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
