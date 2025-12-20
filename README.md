@@ -1,14 +1,16 @@
-Combustível Ideal
+⛽ Combustível Ideal
+App que calcula instantaneamente a melhor opção financeira entre etanol e gasolina.
 
-Motoristas brasileiros enfrentam diariamente o dilema: etanol ou gasolina? 
-Com preços voláteis e a regra tradicional (70% do preço da gasolina) nem 
-sempre aplicável devido à eficiência energética diferente dos combustíveis, 
-os consumidores frequentemente pagam mais sem necessidade. A decisão manual 
-é complexa, envolve cálculo mental e conhecimento técnico sobre eficiência.
+📱 Funcionalidades
+- Cálculo baseado na regra de 70% e eficiência energética personalizável
+- Interface moderna com Material Design 3
+- Compartilhamento de resultados
 
-O Combustível Ideal resolve isso instantaneamente: calcula a relação custo-
-benefício considerando preços atuais e eficiência comparativa, indicando 
-visualmente a melhor opção com base em dados reais.
+🏗️ Arquitetura
+O app segue os princípios de **Clean Architecture** e **MVVM**, utilizando:
+- Kotlin & Jetpack Compose
+- ViewModel para estado da UI
+- Casos de Uso para lógica de negócio
 
 
 Conclusão Técnica
