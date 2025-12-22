@@ -1,0 +1,45 @@
+package br.com.combustivelideal.presentation.home.components
+
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Calculate
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+
+@Composable
+fun NeonButton(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
+) {
+    Button(
+        onClick = onClick,
+        enabled = enabled,
+        modifier = modifier,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = if (enabled)
+                MaterialTheme.colorScheme.tertiary
+            else
+                MaterialTheme.colorScheme.tertiary.copy(alpha = 0.3f),
+            contentColor = MaterialTheme.colorScheme.onTertiary
+        ),
+        elevation = ButtonDefaults.buttonElevation(
+            defaultElevation = if (enabled) 8.dp else 0.dp
+        )
+    ) {
+        Icon(
+            imageVector = Icons.Default.Calculate,
+            contentDescription = null
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(text)
+    }
+}

@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import br.com.combustivelideal.presentation.home.HomeScreen
 import br.com.combustivelideal.presentation.ui.screen.TelaPrincipal
 import br.com.combustivelideal.presentation.ui.theme.CombustivelIdealTheme
 
@@ -23,7 +24,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    TelaPrincipal()
+                    HomeScreen()
+                    //TelaPrincipal()
                 }
             }
         }
