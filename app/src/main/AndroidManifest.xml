@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CombustivelIdeal">
         <activity
-            android:name=".MainActivity"
+            android:name="br.com.combustivelideal.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.CombustivelIdeal">
             <intent-filter>

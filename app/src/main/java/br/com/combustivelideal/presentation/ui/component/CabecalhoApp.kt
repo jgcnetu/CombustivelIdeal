@@ -28,6 +28,7 @@ fun CabecalhoApp() {
             containerColor = MaterialTheme.colorScheme.primaryContainer
         )
     ) {
+
         Column(
             modifier = Modifier.fillMaxWidth().padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally

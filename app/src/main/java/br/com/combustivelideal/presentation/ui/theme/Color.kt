@@ -2,10 +2,21 @@ package br.com.combustivelideal.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val AmareloGasolina = Color(0xFFFFF9A7)  // Amarelo claro
-val AmareloGasolinaEscuro = Color(0xFFFBC02D)  // Amarelo mais forte
-val VerdeEtanol = Color(0xFFA6FFA6)  // Verde claro
-val VerdeEtanolEscuro = Color(0xFF388E3C)  // Verde mais forte
-val LaranjaAlerta = Color(0xFFFF9800)
-val CinzaClaro = Color(0xFFD7D7D7)
-val CinzaEscuro = Color(0xFF333333)
+// Neon identity
+val NeonGreen = Color(0xFF00FF9C)
+val NeonGreenSecondary = Color(0xFF00E676)
+val NeonYellow = Color(0xFFD7FF00)
+
+// Dark base
+val DarkBackground = Color(0xFF050807)
+val DarkSurface = Color(0xFF0B2E1D)
+val DarkSurfaceVariant = Color(0xFF123B28)
+
+// On colors
+val OnNeon = Color(0xFF00391C)
+val OnDark = Color(0xFFE6FFF3)
+val OnSurface = Color(0xFFCFFFE6)
+
+// Utility
+val OutlineGreen = Color(0xFF2E7D5A)
+val ErrorRed = Color(0xFFCF6679)

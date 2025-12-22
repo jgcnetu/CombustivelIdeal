@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.CombustivelIdeal" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.CombustivelIdeal" parent="android:Theme.Material.Light.NoActionBar">
+    <item name="android:statusBarColor">#050807</item>
+    </style>
+
+    <style name="Theme.CombustivelIdeal.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#050807</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="windowSplashScreenIconBackgroundColor">#050807</item>
+        <item name="postSplashScreenTheme">@style/Theme.CombustivelIdeal</item>
+    </style>
 </resources>
