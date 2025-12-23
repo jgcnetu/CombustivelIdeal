@@ -9,7 +9,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import br.com.combustivelideal.presentation.home.HomeScreen
-import br.com.combustivelideal.presentation.ui.screen.TelaPrincipal
 import br.com.combustivelideal.presentation.ui.theme.CombustivelIdealTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,7 +24,6 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     HomeScreen()
-                    //TelaPrincipal()
                 }
             }
         }

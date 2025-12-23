@@ -28,11 +28,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import br.com.combustivelideal.R
-import br.com.combustivelideal.presentation.home.components.ClearButton
-import br.com.combustivelideal.presentation.home.components.InfoCard
-import br.com.combustivelideal.presentation.home.components.NeonButton
-import br.com.combustivelideal.presentation.home.components.NeonRingWithDrop
-import br.com.combustivelideal.presentation.home.components.ResultCard
+import br.com.combustivelideal.presentation.components.buttons.ClearButton
+import br.com.combustivelideal.presentation.components.buttons.NeonButton
+import br.com.combustivelideal.presentation.components.cards.InfoCard
+import br.com.combustivelideal.presentation.components.cards.ResultCard
+import br.com.combustivelideal.presentation.components.indicators.NeonRingWithDrop
 
 @Composable
 fun HomeScreen(

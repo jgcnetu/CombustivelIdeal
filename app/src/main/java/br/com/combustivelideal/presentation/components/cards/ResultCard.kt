@@ -1,13 +1,26 @@
-package br.com.combustivelideal.presentation.components
+package br.com.combustivelideal.presentation.components.cards
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Share
-import androidx.compose.material3.*
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,7 +52,7 @@ fun ResultCard(
     val percentage = (progress * 100).roundToInt()
 
     AnimatedVisibility(
-        visible = visible,
+        visible = true,
         enter = fadeIn(),
         exit = fadeOut()
     ) {
@@ -95,7 +108,7 @@ fun ResultCard(
                         colors = ButtonDefaults.outlinedButtonColors(
                             contentColor = color
                         ),
-                        border = ButtonDefaults.outlinedButtonBorder.copy(
+                        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                             brush = SolidColor(color)
                         )
                     ) {
@@ -125,7 +138,7 @@ fun ResultCard(
                         colors = ButtonDefaults.outlinedButtonColors(
                             contentColor = color
                         ),
-                        border = ButtonDefaults.outlinedButtonBorder.copy(
+                        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                             brush = SolidColor(color)
                         )
                     ) {

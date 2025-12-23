@@ -1,6 +1,5 @@
-package br.com.combustivelideal.presentation.components
+package br.com.combustivelideal.presentation.components.indicators
 
-import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -18,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import br.com.combustivelideal.domain.model.FuelType
-import br.com.combustivelideal.presentation.ui.theme.FuelColors
+import br.com.combustivelideal.presentation.components.animation.AnimatedPercentageText
 
 @Composable
 fun NeonRingWithDrop(
@@ -95,19 +94,4 @@ fun PulsingGlow(
             radius = size.minDimension / 2 * scale
         )
     }
-}
-
-@Composable
-fun animatedFuelColor(fuelType: FuelType?): Color {
-    val target = when (fuelType) {
-        FuelType.ETANOL -> FuelColors.Etanol
-        FuelType.GASOLINA -> FuelColors.Gasolina
-        null -> FuelColors.Etanol
-    }
-
-    return animateColorAsState(
-        targetValue = target,
-        animationSpec = tween(600),
-        label = "fuelColor"
-    ).value
 }

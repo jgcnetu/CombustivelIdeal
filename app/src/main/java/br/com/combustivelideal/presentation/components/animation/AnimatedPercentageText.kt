@@ -1,4 +1,4 @@
-package br.com.combustivelideal.presentation.home.components
+package br.com.combustivelideal.presentation.components.animation
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween

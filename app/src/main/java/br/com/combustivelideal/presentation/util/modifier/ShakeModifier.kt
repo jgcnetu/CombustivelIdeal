@@ -1,4 +1,4 @@
-package br.com.combustivelideal.presentation.home.components
+package br.com.combustivelideal.presentation.util.modifier
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween

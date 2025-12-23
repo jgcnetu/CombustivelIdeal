@@ -1,4 +1,4 @@
-package br.com.combustivelideal.presentation.components
+package br.com.combustivelideal.presentation.components.buttons
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.unit.dp
+import br.com.combustivelideal.presentation.util.modifier.shake
 
 @Composable
 fun ClearButton(
@@ -38,7 +39,7 @@ fun ClearButton(
         colors = ButtonDefaults.outlinedButtonColors(
             contentColor = MaterialTheme.colorScheme.error
         ),
-        border = ButtonDefaults.outlinedButtonBorder.copy(
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = SolidColor(MaterialTheme.colorScheme.error)
         )
     ) {
