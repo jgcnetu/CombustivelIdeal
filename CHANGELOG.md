@@ -1,25 +1,86 @@
-⛽ Combustível Ideal
-App que calcula instantaneamente a melhor opção financeira entre etanol e gasolina.
+\# Changelog
 
-📱 Funcionalidades
-- Cálculo baseado na regra de 70% e eficiência energética personalizável
-- Interface moderna com Material Design 3
-- Compartilhamento de resultados
-
-🏗️ Arquitetura
-O app segue os princípios de **Clean Architecture** e **MVVM**, utilizando:
-- Kotlin & Jetpack Compose
-- ViewModel para estado da UI
-- Casos de Uso para lógica de negócio
+Todas as mudanças notáveis deste projeto serão documentadas aqui.
 
 
-Conclusão Técnica
 
-O Combustível Ideal exemplifica como Kotlin moderno + Jetpack Compose permite
-criar apps úteis com código limpo e manutenível. 
-Mais que um app de cálculo, tornou-se um case de estudo de como decisões 
-arquiteturais simples, mas ponderadas, impactam positivamente a qualidade do 
-software desde o primeiro commit.
+O formato segue o padrão \[Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/)
 
-Tecnologias Utilizadas: 
-Kotlin, Jetpack Compose, Material Design 3, Clean Architecture.
+e este projeto adota \[Semantic Versioning](https://semver.org/lang/pt-BR/).
+
+
+
+---
+
+
+
+\## \[1.1.0] - 22/12/2025
+
+
+
+\### ✨ Adicionado
+
+\- Nova HomeScreen totalmente reformulada em Jetpack Compose
+
+\- Ring animado com glow neon e gota central
+
+\- Animação baseada no cálculo (etanol x gasolina)
+
+\- Card de resultado animado com:
+
+  - Opção de recalcular
+
+  - Opção de compartilhar resultado
+
+\- Card informativo “Como funciona?”
+
+\- Botões neon personalizados (Calcular / Limpar)
+
+\- Animação no botão Limpar (shake)
+
+\- Splash Screen Android 12+
+
+\- Ícone adaptativo (foreground/background)
+
+\- Suporte a tema dark e light alinhado ao verde neon
+
+\- Ajuste da Status Bar para cor primary
+
+
+
+\### 🎨 Melhorado
+
+\- UI/UX geral com visual moderno inspirado em apps premium
+
+\- Centralização e espaçamento dos elementos
+
+\- Scroll vertical na Home para melhor usabilidade
+
+\- Estados de botão (habilitado/desabilitado)
+
+\- Organização de componentes em packages
+
+
+
+\### 🛠 Corrigido
+
+\- Problemas de layout que sobrepunham botões
+
+\- Erros de alinhamento em cards e ícones
+
+\- Correções em componentes Compose (Box, Row, Column)
+
+
+
+---
+
+
+
+\## \[1.0.0] - 05/12/2025
+
+\### 🎉 Lançamento inicial
+
+\- Cálculo básico de combustível ideal
+
+\- Interface simples
+

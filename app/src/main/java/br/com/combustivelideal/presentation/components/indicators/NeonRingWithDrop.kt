@@ -1,4 +1,4 @@
-package br.com.combustivelideal.presentation.home.components
+package br.com.combustivelideal.presentation.components
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
@@ -10,16 +10,13 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import br.com.combustivelideal.R
 import br.com.combustivelideal.domain.model.FuelType
 import br.com.combustivelideal.presentation.ui.theme.FuelColors
 

@@ -1,4 +1,4 @@
-package br.com.combustivelideal.presentation.home.components
+package br.com.combustivelideal.presentation.components
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width

@@ -1,4 +1,4 @@
-package br.com.combustivelideal.presentation.home.components
+package br.com.combustivelideal.presentation.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
