@@ -1,6 +1,7 @@
 package br.com.combustivelideal.presentation.home
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -32,16 +33,20 @@ import br.com.combustivelideal.presentation.components.buttons.ClearButton
 import br.com.combustivelideal.presentation.components.buttons.NeonButton
 import br.com.combustivelideal.presentation.components.cards.InfoCard
 import br.com.combustivelideal.presentation.components.cards.ResultCard
+import br.com.combustivelideal.presentation.components.effects.WaterDropEffect
 import br.com.combustivelideal.presentation.components.indicators.NeonRingWithDrop
 
 @Composable
+
 fun HomeScreen(
     viewModel: HomeViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val scrollState = rememberScrollState()
 
-    Column(
+    Box(modifier = Modifier.fillMaxSize()) {
+
+        Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
@@ -103,7 +108,6 @@ fun HomeScreen(
                 modifier = Modifier.fillMaxWidth()
             )
         }
-
         Spacer(modifier = Modifier.height(8.dp))
 
         // ⛽ Gasolina
@@ -117,7 +121,6 @@ fun HomeScreen(
                 tint = MaterialTheme.colorScheme.tertiary,
                 modifier = Modifier.size(36.dp)
             )
-
             OutlinedTextField(
                 value = uiState.gasolinePrice,
                 onValueChange = viewModel::onGasolinePriceChange,
@@ -134,7 +137,6 @@ fun HomeScreen(
                 )
             )
         }
-
         Spacer(modifier = Modifier.height(16.dp))
 
         // 🔘 Botões
@@ -147,7 +149,6 @@ fun HomeScreen(
                 onClick = viewModel::limparCampos,
                 modifier = Modifier.weight(0.4f)
             )
-
             NeonButton(
                 text = "Calcular",
                 onClick = viewModel::calcularMelhorOpcao,
@@ -155,7 +156,6 @@ fun HomeScreen(
                 modifier = Modifier.weight(0.6f)
             )
         }
-
         // 📊 Resultado (FORA DO ROW)
         ResultCard(
             visible = uiState.showResult,
@@ -163,12 +163,15 @@ fun HomeScreen(
             progress = uiState.progress,
             onRecalculate = viewModel::calcularNovamente
         )
-
         // ℹ️ Info
         InfoCard(
             visible = true
         )
-
         Spacer(modifier = Modifier.height(24.dp))
+        }
+        // 🌊 Efeito de gota d’água em tela cheia
+        WaterDropEffect(
+            color = MaterialTheme.colorScheme.primary
+        )
     }
 }
