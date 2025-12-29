@@ -1,92 +1,109 @@
 package br.com.combustivelideal.presentation.home
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import br.com.combustivelideal.domain.model.FuelType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
 
     private val _uiState = MutableStateFlow(HomeUiState())
-    val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
+    val uiState: StateFlow<HomeUiState> = _uiState
+
+    /* ---------- PRICE INPUTS ---------- */
+
+    fun onEthanolPriceChange(value: String) {
+        _uiState.update { it.copy(ethanolPrice = value) }
+        updateCalculateEnabled()
+    }
 
     fun onGasolinePriceChange(value: String) {
+        _uiState.update { it.copy(gasolinePrice = value) }
+        updateCalculateEnabled()
+    }
+
+    /* ---------- CONSUMPTION INPUTS ---------- */
+
+    fun onUseConsumptionToggle(enabled: Boolean) {
         _uiState.update {
-            it.copy(gasolinePrice = value)
+            it.copy(
+                useConsumption = enabled,
+                ethanolConsumption = "",
+                gasolineConsumption = ""
+            )
+        }
+        updateCalculateEnabled()
+    }
+
+    fun onEthanolConsumptionChange(value: String) {
+        _uiState.update { it.copy(ethanolConsumption = value) }
+        updateCalculateEnabled()
+    }
+
+    fun onGasolineConsumptionChange(value: String) {
+        _uiState.update { it.copy(gasolineConsumption = value) }
+        updateCalculateEnabled()
+    }
+
+    /* ---------- CALCULATION ---------- */
+
+    fun calcularMelhorOpcao() {
+        val state = _uiState.value
+
+        val ethanolPrice = state.ethanolPrice.toFloatOrNull() ?: return
+        val gasolinePrice = state.gasolinePrice.toFloatOrNull() ?: return
+
+        val progress: Float
+        val fuelType: FuelType
+
+        if (state.useConsumption) {
+            val ethanolCons = state.ethanolConsumption.toFloatOrNull() ?: return
+            val gasolineCons = state.gasolineConsumption.toFloatOrNull() ?: return
+
+            val costEthanol = ethanolPrice / ethanolCons
+            val costGasoline = gasolinePrice / gasolineCons
+
+            progress = (costEthanol / costGasoline).coerceIn(0f, 1f)
+            fuelType = if (costEthanol <= costGasoline) FuelType.ETANOL else FuelType.GASOLINA
+        } else {
+            progress = (ethanolPrice / gasolinePrice).coerceIn(0f, 1f)
+            fuelType = if (progress <= 0.7f) FuelType.ETANOL else FuelType.GASOLINA
+        }
+
+        _uiState.update {
+            it.copy(
+                progress = progress,
+                fuelType = fuelType,
+                showResult = true
+            )
         }
     }
 
-    fun onEthanolPriceChange(value: String) {
-        _uiState.update {
-            it.copy(ethanolPrice = value)
-        }
+    fun calcularNovamente() {
+        _uiState.update { it.copy(showResult = false) }
     }
 
     fun limparCampos() {
-        _uiState.update {
-            it.copy(
-                ethanolPrice = "",
-                gasolinePrice = "",
-                progress = 0f,
-                fuelType = null,
-                resultText = "",
-                showResult = false
-            )
-        }
+        _uiState.value = HomeUiState()
     }
 
-    fun calcularMelhorOpcao() {
-        viewModelScope.launch {
-            val gasolina = _uiState.value.gasolinePrice.toFloatOrNull()
-            val etanol = _uiState.value.ethanolPrice.toFloatOrNull()
+    /* ---------- VALIDATION ---------- */
 
-            if (gasolina == null || etanol == null || gasolina <= 0f) {
-                _uiState.update {
-                    it.copy(
-                        resultText = "Valores inválidos",
-                        progress = 0f,
-                        fuelType = null
-                    )
-                }
-                return@launch
-            }
+    private fun updateCalculateEnabled() {
+        val state = _uiState.value
 
-            val ratio = etanol / gasolina
+        val pricesFilled =
+            state.ethanolPrice.isNotBlank() &&
+                    state.gasolinePrice.isNotBlank()
 
-            val fuelType = if (ratio < 0.7f) {
-                FuelType.ETANOL
-            } else {
-                FuelType.GASOLINA
-            }
+        val consumptionFilled =
+            !state.useConsumption ||
+                    (state.ethanolConsumption.isNotBlank() &&
+                            state.gasolineConsumption.isNotBlank())
 
-            val resultText = if (fuelType == FuelType.ETANOL) {
-                "Melhor opção: Etanol"
-            } else {
-                "Melhor opção: Gasolina"
-            }
-
-            _uiState.update {
-                it.copy(
-                    progress = ratio.coerceIn(0f, 1f),
-                    fuelType = fuelType,
-                    resultText = resultText,
-                    showResult = true
-                )
-            }
-        }
-    }
-    fun calcularNovamente() {
         _uiState.update {
-            it.copy(
-                showResult = false,
-                progress = 0f,
-                fuelType = null,
-                resultText = ""
-            )
+            it.copy(isCalculateEnabled = pricesFilled && consumptionFilled)
         }
     }
 }

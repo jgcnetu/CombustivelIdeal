@@ -14,9 +14,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Speed
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -46,7 +48,7 @@ fun InfoCard(
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceVariant
             ),
-            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
         ) {
             Column(
                 modifier = Modifier.padding(16.dp),
@@ -58,44 +60,67 @@ fun InfoCard(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Info,
+                        imageVector = Icons.Outlined.Info,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.primary
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
                         text = "Como funciona?",
-                        style = MaterialTheme.typography.titleMedium,
+                        style = MaterialTheme.typography.titleSmall,
                         color = MaterialTheme.colorScheme.primary
                     )
                 }
 
-                // 🔹 Passos
+                // 🔹 Cálculo padrão
                 InfoLine("Divida o preço do Etanol pelo da Gasolina.")
-                InfoLine("Multiplique por 100 para obter a porcentagem.")
-                InfoLine("Até 70% → ETANOL é melhor.")
-                InfoLine("Acima de 70% → GASOLINA compensa.")
+                InfoLine("Até 70% → Etanol é mais vantajoso.")
+                InfoLine("Acima de 70% → Gasolina é mais vantajosa.")
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(4.dp))
+
+                // 🔹 Consumo do veículo
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Speed,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "Cálculo por consumo (opcional)",
+                        style = MaterialTheme.typography.titleSmall,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
+
+                InfoLine("Informe o consumo do veículo em etanol e gasolina.")
+                InfoLine("O app calcula o custo real por km (R$/km).")
+                InfoLine("O resultado será ainda mais preciso.")
+
+                Spacer(modifier = Modifier.height(4.dp))
 
                 // 🔹 Legenda
                 Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     LegendDot(
                         color = Color(0xFF00FF7F),
-                        text = "Etanol vantajoso"
+                        text = "Etanol é mais vantajoso"
                     )
                     LegendDot(
                         color = Color(0xFFFFD700),
-                        text = "Gasolina vantajosa"
+                        text = "Gasolina é mais vantajosa"
                     )
                 }
             }
         }
     }
 }
+
 @Composable
 private fun InfoLine(text: String) {
     Text(
@@ -116,15 +141,12 @@ private fun LegendDot(
         Box(
             modifier = Modifier
                 .size(8.dp)
-                .background(color.copy(alpha = 0.9f),
-                    RoundedCornerShape(50))
+                .background(color, shape = CircleShape)
         )
         Spacer(modifier = Modifier.width(6.dp))
-
         Text(
             text = text,
-            style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            style = MaterialTheme.typography.labelMedium
         )
     }
 }

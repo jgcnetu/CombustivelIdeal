@@ -3,30 +3,18 @@ package br.com.combustivelideal.presentation.components.cards
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Share
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import br.com.combustivelideal.domain.model.FuelType
@@ -38,6 +26,11 @@ fun ResultCard(
     visible: Boolean,
     fuelType: FuelType?,
     progress: Float,
+    useConsumption: Boolean,
+    ethanolPrice: String,
+    gasolinePrice: String,
+    ethanolConsumption: String,
+    gasolineConsumption: String,
     onRecalculate: () -> Unit
 ) {
     if (!visible || fuelType == null) return
@@ -50,6 +43,20 @@ fun ResultCard(
     }
 
     val percentage = (progress * 100).roundToInt()
+
+    val ethanolCostKm =
+        ethanolPrice.toFloatOrNull()?.let { price ->
+            ethanolConsumption.toFloatOrNull()?.let { cons ->
+                price / cons
+            }
+        }
+
+    val gasolineCostKm =
+        gasolinePrice.toFloatOrNull()?.let { price ->
+            gasolineConsumption.toFloatOrNull()?.let { cons ->
+                price / cons
+            }
+        }
 
     AnimatedVisibility(
         visible = true,
@@ -67,7 +74,7 @@ fun ResultCard(
         ) {
             Column(
                 modifier = Modifier
-                    .padding(16.dp)
+                    .padding(12.dp)
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -86,36 +93,50 @@ fun ResultCard(
                     textAlign = TextAlign.Center
                 )
 
-                Text(
-                    text = "Etanol está $percentage% do valor da gasolina.",
-                    style = MaterialTheme.typography.bodyMedium,
-                    textAlign = TextAlign.Center
-                )
+                if (useConsumption) {
+                    Text(
+                        text = "Cálculo baseado no consumo do veículo",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
 
-                Spacer(modifier = Modifier.height(8.dp))
+                    HorizontalDivider()
 
-                // 🔘 Botões
+                    CostRow(
+                        label = "Etanol",
+                        value = ethanolCostKm,
+                        highlight = fuelType == FuelType.ETANOL
+                    )
+
+                    CostRow(
+                        label = "Gasolina",
+                        value = gasolineCostKm,
+                        highlight = fuelType == FuelType.GASOLINA
+                    )
+                } else {
+                    Text(
+                        text = "Etanol está $percentage% do valor da gasolina",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
 
-                    // 🔁 Calcular novamente
+                    // 🔁 Recalcular
                     OutlinedButton(
                         modifier = Modifier.weight(1f),
                         onClick = onRecalculate,
                         colors = ButtonDefaults.outlinedButtonColors(
                             contentColor = color
                         ),
-                        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
+                        border = ButtonDefaults.outlinedButtonBorder().copy(
                             brush = SolidColor(color)
                         )
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Refresh,
-                            contentDescription = null
-                        )
+                        Icon(Icons.Default.Refresh, null)
                         Spacer(modifier = Modifier.width(6.dp))
                         Text("Recalcular")
                     }
@@ -124,33 +145,73 @@ fun ResultCard(
                     OutlinedButton(
                         modifier = Modifier.weight(1f),
                         onClick = {
-                            val message = """
-                                🚗 Combustível Ideal
-                                
-                                💡 Melhor opção: ${fuelType.name}
-                                📊 Etanol está $percentage% do valor da gasolina.
-                                
-                                Calcule você também!
-                            """.trimIndent()
+                            val message = buildString {
+                                appendLine("🚗 Combustível Ideal")
+                                appendLine()
+
+                                if (useConsumption && ethanolCostKm != null && gasolineCostKm != null) {
+                                    appendLine("📊 Cálculo por consumo")
+                                    appendLine()
+                                    appendLine("⛽ Preços:")
+                                    appendLine("• Etanol: R$ $ethanolPrice")
+                                    appendLine("• Gasolina: R$ $gasolinePrice")
+                                    appendLine()
+                                    appendLine("🚘 Consumo:")
+                                    appendLine("• Etanol: $ethanolConsumption km/l")
+                                    appendLine("• Gasolina: $gasolineConsumption km/l")
+                                    appendLine()
+                                    appendLine("💰 Custo por km:")
+                                    appendLine("• Etanol: R$ %.2f/km".format(ethanolCostKm))
+                                    appendLine("• Gasolina: R$ %.2f/km".format(gasolineCostKm))
+                                } else {
+                                    appendLine("📊 Etanol está $percentage% do valor da gasolina")
+                                }
+
+                                appendLine()
+                                appendLine("✅ Melhor opção: ${fuelType.name}")
+                                appendLine()
+                                appendLine("Calcule você também!")
+                            }
 
                             shareText(context, message)
                         },
                         colors = ButtonDefaults.outlinedButtonColors(
                             contentColor = color
                         ),
-                        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
+                        border = ButtonDefaults.outlinedButtonBorder().copy(
                             brush = SolidColor(color)
                         )
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Share,
-                            contentDescription = null
-                        )
+                        Icon(Icons.Default.Share, null)
                         Spacer(modifier = Modifier.width(6.dp))
                         Text("Compartilhar")
                     }
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun CostRow(
+    label: String,
+    value: Float?,
+    highlight: Boolean
+) {
+    val color = if (highlight)
+        MaterialTheme.colorScheme.primary
+    else
+        MaterialTheme.colorScheme.onSurfaceVariant
+
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(label)
+        Text(
+            text = value?.let { "R$ %.2f / km".format(it) } ?: "--",
+            fontWeight = if (highlight) FontWeight.Bold else FontWeight.Normal,
+            color = color
+        )
     }
 }
