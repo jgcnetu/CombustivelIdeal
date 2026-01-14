@@ -1,5 +1,6 @@
 package br.com.combustivelideal.presentation.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,28 +26,45 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import br.com.combustivelideal.R
+import br.com.combustivelideal.data.FuelHistoryRepository
+import br.com.combustivelideal.data.local.database.AppDatabase
 import br.com.combustivelideal.presentation.components.buttons.ClearButton
+import br.com.combustivelideal.presentation.components.buttons.HistoryButton
 import br.com.combustivelideal.presentation.components.buttons.NeonButton
 import br.com.combustivelideal.presentation.components.cards.InfoCard
 import br.com.combustivelideal.presentation.components.cards.ResultCard
 import br.com.combustivelideal.presentation.components.effects.WaterDropEffect
 import br.com.combustivelideal.presentation.components.indicators.NeonRingWithDrop
 
-@Composable
 
+@Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = viewModel()
+    onHistoryClick: () -> Unit,
 ) {
+    val context = LocalContext.current
+
+    val viewModel: HomeViewModel = viewModel(
+        factory = HomeViewModelFactory(
+            FuelHistoryRepository(
+                AppDatabase.getInstance().fuelHistoryDao()
+            )
+        )
+    )
+
+
     val uiState by viewModel.uiState.collectAsState()
     val scrollState = rememberScrollState()
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize()
+        .background(MaterialTheme.colorScheme.background) // 🔥 FORÇA FUNDO ESCURO
+    ) {
 
         Column(
         modifier = Modifier
@@ -140,6 +158,7 @@ fun HomeScreen(
         }
             Spacer(modifier = Modifier.height(8.dp))
 
+            // 🔘 Consumo
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -227,6 +246,15 @@ fun HomeScreen(
                 modifier = Modifier.weight(0.6f)
             )
         }
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // 📜 Histórico
+            HistoryButton(
+                text = "Ver Histórico",
+                onClick = onHistoryClick,
+                modifier = Modifier.fillMaxWidth()
+            )
+
         // 📊 Resultado (FORA DO ROW)
             ResultCard(
                 visible = uiState.showResult,
